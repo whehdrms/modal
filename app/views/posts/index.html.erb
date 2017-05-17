@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+  <div class="container">
+    <h1>Posts</h1>
+
+    <!-- Modal -->
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="hi">Title</th>
+          <th>Body</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @posts.each do |post| %>
+          <tr>
+            <td><%= post.title %></td>
+            <td><%= post.body %></td>
+            <td  class="text-right"><!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#<%= post.id*99999 %>">
+              Show
+            </button>
+            <%= link_to 'Edit', edit_post_path(post), class: "btn btn-success" %>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#<%= post.id %>">
+              삭제
+            </button>
+          </tr>
+          <div class="modal fade" id="<%= post.id*99999 %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel"><%= post.title %></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="content"><%= post.body %></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="<%= post.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">삭제확인</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  삭제하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                  <%= link_to 'Destroy', post, class: "btn btn-danger", method: :delete%>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+
+    <%= link_to 'New Post', new_post_path, class: 'class="btn btn-primary btn-lg' %>
+  </div>
